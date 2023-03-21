@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 
-class login extends StatelessWidget {
-  const login({super.key});
+class create extends StatelessWidget {
+  const create({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -43,6 +43,7 @@ class _createaccState extends State<createacc> {
                   decoration: InputDecoration(
                     labelText: 'First Name ',
                             contentPadding: EdgeInsets.all(8.0),
+                            prefixIcon: Icon(Icons.person),
                      // border: InputBorder.none,
                   ),
                 ),
@@ -55,6 +56,7 @@ class _createaccState extends State<createacc> {
                 ),
                 child: TextField(
                   decoration: InputDecoration(
+                     prefixIcon: Icon(Icons.person),
                     labelText: 'Last Name ',
                             contentPadding: EdgeInsets.all(8.0),
                      // border: InputBorder.none,
@@ -69,6 +71,7 @@ class _createaccState extends State<createacc> {
                 ),
                 child: TextField(
                   decoration: InputDecoration(
+                     prefixIcon: Icon(Icons.message_rounded,color: Colors.redAccent,),
                     labelText: 'Email',
                             contentPadding: EdgeInsets.all(8.0),
                      // border: InputBorder.none,
@@ -84,6 +87,7 @@ class _createaccState extends State<createacc> {
                 child: TextField(
                   obscureText: true,
                   decoration: InputDecoration(
+                     prefixIcon: Icon(Icons.password,color: Colors.redAccent,),
                     labelText: 'Password',
                     contentPadding: EdgeInsets.all(8.0),
                   ),
@@ -92,7 +96,7 @@ class _createaccState extends State<createacc> {
               SizedBox(height: 16.0),
               ElevatedButton(
                 onPressed: () {},
-                child: Text('Create Account'),
+                child: Text('Create'),
               ),
             ],
           ),

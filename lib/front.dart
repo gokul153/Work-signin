@@ -1,6 +1,7 @@
 //import 'package:b_green/page/meandrawer.dart';
 import 'package:flutter/material.dart';
 import 'package:project/login.dart';
+import 'package:project/pages/login_page.dart';
 //import 'package:begreen/core/color.dart';
 //import 'package:b_green/widget/bottomnav.dart';
 
@@ -41,10 +42,10 @@ class SplashPage extends StatelessWidget {
           const SizedBox(height: 25),
           GestureDetector(
             onTap: () {
-             /* Navigator.push(
+              Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (builder) => const BottomNavBar()));*/
+                      builder: (builder) =>  login()));
             },
             child: Container(
               padding: const EdgeInsets.symmetric(
@@ -69,7 +70,7 @@ class SplashPage extends StatelessWidget {
             onPressed: () {
               Navigator.push(
     context,
-    MaterialPageRoute(builder: (context) => const login()),
+    MaterialPageRoute(builder: (context) => const create()),
   );
             },
             child: Text(
