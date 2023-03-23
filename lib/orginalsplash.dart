@@ -16,7 +16,8 @@ class _FirstScreenState extends State<FirstScreen> {
     new Future.delayed(
         Duration(seconds: 2),
         () => Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => SplashPage())));
+            context, MaterialPageRoute(builder: (context) => SplashPage()))
+            );
   }
 
   @override
@@ -27,17 +28,23 @@ class _FirstScreenState extends State<FirstScreen> {
         child: Column(children: <Widget>[
           Divider(
             height: 240.0,
-            color: Colors.black,
+            color: Color.fromARGB(255, 181, 176, 176),
           ),
-          new Image.asset(
-            'assets/images/Settyl-logo-dark.jpg',
-            fit: BoxFit.cover,
-            repeat: ImageRepeat.noRepeat,
-            width: 300.0,
+          CircleAvatar(
+             
+            child: new Image.asset(
+              'assets/images/Settyl-logo-dark.jpg',
+              fit: BoxFit.cover,
+              repeat: ImageRepeat.noRepeat,
+             
+              width: 300.0,
+            ),
+             radius: 125,
+             backgroundColor: Colors.black,
           ),
           Divider(
             height: 105.2,
-            color: Colors.black,
+            color: Color.fromARGB(255, 214, 209, 209),
           ),
         ]),
       ),

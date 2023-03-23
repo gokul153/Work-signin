@@ -38,6 +38,14 @@ dependencies:
   api_cache_manager: ^1.0.2
   snippet_coder_utils: ^1.0.13
   flutter_progress_hud: ^2.0.2
+  firebase_auth: ^4.3.0
+  firebase_core: ^2.8.0
+  get: ^4.6.5
+  flutter_polyline_points: ^1.0.0
+ # google_maps_flutter: ^2.2.5
+ # location: ^4.4.0
+  flutter_svg: ^2.0.4
+  google_fonts: ^4.0.3
 
 dev_dependencies:
   flutter_test:

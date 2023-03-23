@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:project/login.dart';
 import 'package:project/pages/login_page.dart';
+import 'package:get/get.dart';
 //import 'package:begreen/core/color.dart';
 //import 'package:b_green/widget/bottomnav.dart';
 
@@ -43,9 +44,7 @@ class SplashPage extends StatelessWidget {
           GestureDetector(
             onTap: () {
               Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (builder) =>  login()));
+                  context, MaterialPageRoute(builder: (builder) => login()));
             },
             child: Container(
               padding: const EdgeInsets.symmetric(
@@ -68,10 +67,18 @@ class SplashPage extends StatelessWidget {
           ),
           TextButton(
             onPressed: () {
-              Navigator.push(
+              Get.to(() => create());
+            /* Navigator.of(context).push(context, 
+         MaterialPageRoute(context, builder: (context){
+                return create();
+             },
+             )
+             ); */
+              /*    Navigator.push(
     context,
-    MaterialPageRoute(builder: (context) => const create()),
-  );
+    MaterialPageRoute(builder: (context) => const create()),*/
+
+              //);
             },
             child: Text(
               'Create an account',

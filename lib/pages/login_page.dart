@@ -3,9 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
+import 'package:project/authcontroller.dart';
 import 'package:project/login.dart';
 import 'package:snippet_coder_utils/FormHelper.dart';
 import 'package:snippet_coder_utils/hex_color.dart';
+
+var user = "";
 
 class login extends StatefulWidget {
   login({super.key});
@@ -15,8 +18,6 @@ class login extends StatefulWidget {
 }
 
 class _loginState extends State<login> {
-  final _usernameController = TextEditingController();
-
   final _passwordController = TextEditingController();
 
   final _emailController = TextEditingController();
@@ -150,7 +151,6 @@ class _loginState extends State<login> {
                           hintStyle: TextStyle(color: Colors.white),
                           hintText: "password",
                           border: InputBorder.none),
-                      maxLength: 6,
                       obscureText: true,
                       validator: (password) {}),
                 ),
@@ -178,7 +178,11 @@ class _loginState extends State<login> {
                     decoration:
                         BoxDecoration(borderRadius: BorderRadius.circular(30)),
                     child: ElevatedButton(
-                        onPressed: () {}, child: Text("Sign In"))),
+                        onPressed: () {
+                          Authcontroller.instance.signin(
+                              _emailController.text.trim(), _passwordController.text.trim());
+                        },
+                        child: Text("Sign In"))),
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.04,
                 ),
@@ -191,21 +195,22 @@ class _loginState extends State<login> {
                       ),
                       children: [
                         TextSpan(
-                            text: " Create",
+                            text: " Sign Up!",
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
                             ),
                             recognizer: TapGestureRecognizer()
-                              ..onTap=()=>{
-                                Navigator.push(
-                                         context,
-                 MaterialPageRoute(builder: (context) => const create()),
-                                        )
-                              }
-                              //Get.to(() => createacc())
-                              ),
+                              ..onTap = () => {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => const create()),
+                                    )
+                                  }
+                            //Get.to(() => createacc())
+                            ),
                       ]),
                 ),
               ],
