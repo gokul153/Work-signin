@@ -143,7 +143,7 @@ class _loginState extends State<login> {
                     borderRadius: BorderRadius.circular(4.0),
                   ),
                   child: TextFormField(
-                      scrollPadding: EdgeInsets.all(3.0),
+                      //scrollPadding: EdgeInsets.all(3.0),
                       controller: _passwordController,
                       decoration: InputDecoration(
                           labelText: "Password",
