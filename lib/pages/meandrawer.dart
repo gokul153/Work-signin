@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:project/pages/Address.dart';
+import 'package:project/pages/home_screen.dart';
 import 'package:project/pages/welcomepage.dart';
 
 //import './detail_screen.dart';
@@ -63,11 +64,11 @@ class MeanDrawer extends StatelessWidget {
               ),
             ),
             onTap: () {
-             /* Navigator.push(
+              Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => welcome(),
-                  ));*/
+                    builder: (context) => home_page(),
+                  ));
             },
           ),
           ListTile(

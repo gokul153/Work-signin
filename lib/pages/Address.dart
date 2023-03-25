@@ -71,6 +71,10 @@ class _FindAdressState extends State<FindAdress> {
             ),*/
             GestureDetector(
               onTap: () async {
+                final query = "1600 Amphiteatre Parkway, Mountain View";
+var addresses = await Geocoder.local.findAddressesFromQuery(query);
+var second = addresses.first;
+print("${second.featureName} : ${second.coordinates}");
                 final coordinates = new Coordinates(
                     double.parse(_latController.text),
                     double.parse(_logController.text));
@@ -105,6 +109,8 @@ class _FindAdressState extends State<FindAdress> {
               ),
             ),
             Text(stAdrees),
+            ElevatedButton(onPressed: (){}, child: Text("veiw in map"),
+            )
           ],
         ),
       ),

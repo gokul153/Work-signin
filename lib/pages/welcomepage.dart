@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -37,10 +38,11 @@ class _welcomeState extends State<welcome> {
   //void cropname() {}
   void initstate() {
     super.initState();
+    loadata();
     //_marker.addAll(_list);
   }
 
-  void onMapcreated(GoogleMapController controller) {
+  void onMapcreated(GoogleMapController controller) { 
     _controller.complete(controller);
     setState(() {
       markers.add(const Marker(
@@ -67,6 +69,32 @@ class _welcomeState extends State<welcome> {
           snippet: 'My Custom Subtitle',
         ),
       ));
+    });
+  }
+
+  Future<Position> getuserCurrentlocation() async {
+    await Geolocator.requestPermission()
+        .then((value) {})
+        .onError((error, stackTrace) {
+      print("error" + error.toString());
+    });
+    return await Geolocator.getCurrentPosition();
+  }
+
+  loadata() {
+    getuserCurrentlocation().then((value) async {
+      print("my Current location");
+      print(value.latitude.toString() + " " + value.longitude.toString());
+      markers.add(Marker(
+          markerId: MarkerId('5'),
+          position: LatLng(value.latitude, value.longitude),
+          infoWindow: InfoWindow(
+            title: 'My location',
+          )));
+      GoogleMapController controller = await _controller.future;
+      controller.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
+          target: LatLng(value.latitude, value.longitude), zoom: 14)));
+      setState(() {});
     });
   }
 
@@ -131,9 +159,27 @@ class _welcomeState extends State<welcome> {
             Icons.location_disabled_outlined,
           ),
           onPressed: () async {
-            GoogleMapController controller = await _controller.future;
+            getuserCurrentlocation().then((value) async {
+              print("my Current location");
+              print(
+                  value.latitude.toString() + " " + value.longitude.toString());
+              markers.add(Marker(
+                  markerId: MarkerId('5'),
+                  position: LatLng(value.latitude, value.longitude),
+                  infoWindow: InfoWindow(
+                    title: 'My location',
+                  )));
+              GoogleMapController controller = await _controller.future;
+              controller.animateCamera(CameraUpdate.newCameraPosition(
+                  CameraPosition(
+                      target: LatLng(value.latitude, value.longitude),
+                      zoom: 14)));
+              setState(() {});
+            });
+
+            /*   GoogleMapController controller = await _controller.future;
             controller.animateCamera(CameraUpdate.newCameraPosition(
-                CameraPosition(target: LatLng(8.470754, 76.957105), zoom: 14)));
+                CameraPosition(target: LatLng(8.470754, 76.957105), zoom: 14)));*/
           }),
     );
   }

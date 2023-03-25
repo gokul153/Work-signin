@@ -47,6 +47,7 @@ dependencies:
   flutter_svg: ^2.0.4
   google_fonts: ^4.0.3
   flutter_geocoder: ^0.2.2-nullsafety
+  geolocator: ^9.0.2
 
 dev_dependencies:
   flutter_test:
