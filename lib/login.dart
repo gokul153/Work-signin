@@ -6,6 +6,8 @@ import 'package:project/pages/login_page.dart';
 import 'package:get/get.dart';
 import 'package:project/pages/welcomepage.dart';
 
+String name = "";
+
 class create extends StatelessWidget {
   const create({super.key});
 
@@ -31,8 +33,6 @@ class _createaccState extends State<createacc> {
   var passwordcontroller = TextEditingController();
   @override
   Widget build(BuildContext context) {
-  
-
     return Scaffold(
       appBar: AppBar(
         title: Text('Create Account'),
@@ -115,8 +115,11 @@ class _createaccState extends State<createacc> {
               ElevatedButton(
                 onPressed: () {
                   user_add = 0;
-                  user = _username.text + _lastname.text;
-                  print(user);
+                  name = _username.text + _lastname.text;
+                  print(name);
+                  setState(() {
+                    
+                  });
                   Authcontroller.instance.Register(emailcontroller.text.trim(),
                       passwordcontroller.text.trim());
 
@@ -127,7 +130,7 @@ class _createaccState extends State<createacc> {
                       duration: Duration(seconds: 3),
                     );
                     ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                  //  navigatewelcome();
+                    //  navigatewelcome();
                   }
                 },
                 child: Text('Create'),
