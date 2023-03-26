@@ -1,6 +1,8 @@
 import 'dart:async';
-
+import 'dart:typed_data';
+import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -22,6 +24,7 @@ class welcome extends StatefulWidget {
 class _welcomeState extends State<welcome> {
   Completer<GoogleMapController> _controller = Completer();
   Set<Marker> markers = {};
+  Uint8List? markerimage;
 
   static final CameraPosition _kGoogleplex = const CameraPosition(
       target: LatLng(8.4721939, 76.9410857), zoom: 14.4746);
@@ -42,10 +45,30 @@ class _welcomeState extends State<welcome> {
     //_marker.addAll(_list);
   }
 
-  void onMapcreated(GoogleMapController controller) { 
+  Future<Uint8List> getBytesfromAsset(String path, int width) async {
+    ByteData data = await rootBundle.load(path);
+    ui.Codec codec = await ui.instantiateImageCodec(data.buffer.asUint8List(),
+        targetHeight: width);
+    ui.FrameInfo f1 = await codec.getNextFrame();
+    return (await f1.image.toByteData(format: ui.ImageByteFormat.png))!
+        .buffer
+        .asUint8List();
+  }
+
+  void onMapcreated(GoogleMapController controller) async {
     _controller.complete(controller);
+     final Uint8List markerIcon =
+        await getBytesfromAsset('assets/images/car_animate.png', 100);
+        final Uint8List markerIcon2 =
+        await getBytesfromAsset('assets/images/car.png', 100);
+         final Uint8List markerIconstore =
+        await getBytesfromAsset('assets/images/store.png', 100);
+         final Uint8List markerIconschool=
+        await getBytesfromAsset('assets/images/school.png', 100);
     setState(() {
-      markers.add(const Marker(
+     
+      markers.add( Marker(
+        icon: BitmapDescriptor.fromBytes(markerIcon),
         markerId: MarkerId('1'),
         position: LatLng(8.470754, 76.957105),
         infoWindow: InfoWindow(
@@ -53,15 +76,18 @@ class _welcomeState extends State<welcome> {
           snippet: 'nearby',
         ),
       ));
-      markers.add(const Marker(
+      markers.add(Marker(
+        icon: BitmapDescriptor.fromBytes(markerIconschool),
         markerId: MarkerId('2'),
         position: LatLng(8.474147, 76.938379),
+
         infoWindow: InfoWindow(
           title: 'Muttathara',
           snippet: 'college',
         ),
       ));
-      markers.add(const Marker(
+      markers.add( Marker(
+        icon: BitmapDescriptor.fromBytes(markerIconstore),
         markerId: MarkerId('3'),
         position: LatLng(8.4721939, 76.9410857),
         infoWindow: InfoWindow(
@@ -108,7 +134,7 @@ class _welcomeState extends State<welcome> {
         title: Center(child: Text("Locate me!")),
         iconTheme: IconThemeData(color: Colors.black),
       ),
-      drawer: MeanDrawer(),
+      drawer: MeanDrawer(wemail: widget.remail),
       /*   body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -145,6 +171,20 @@ class _welcomeState extends State<welcome> {
           mapType: MapType.normal,
           compassEnabled: true,
           myLocationEnabled: true,
+          onTap: (LatLng latlng) async {
+            markers.add(Marker(
+                markerId: MarkerId('6'),
+                position: LatLng(latlng.latitude, latlng.longitude),
+                infoWindow: InfoWindow(
+                  title: 'My location',
+                )));
+            GoogleMapController controller = await _controller.future;
+            controller.animateCamera(CameraUpdate.newCameraPosition(
+                CameraPosition(
+                    target: LatLng(latlng.latitude, latlng.longitude),
+                    zoom: 14)));
+            setState(() {});
+          },
           /* onMapCreated: (GoogleMapController controller) {
             _controller.complete(controller);
           },*/

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:project/pages/Address.dart';
 import 'package:project/pages/home_screen.dart';
@@ -6,9 +5,15 @@ import 'package:project/pages/welcomepage.dart';
 
 //import './detail_screen.dart';
 //import './home_screen.dart';
-class MeanDrawer extends StatelessWidget {
-  const MeanDrawer({super.key});
+class MeanDrawer extends StatefulWidget {
+  String wemail;
+   MeanDrawer({super.key, required this.wemail});
 
+  @override
+  State<MeanDrawer> createState() => _MeanDrawerState();
+}
+
+class _MeanDrawerState extends State<MeanDrawer> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -32,9 +37,9 @@ class MeanDrawer extends StatelessWidget {
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       image: DecorationImage(
-                       //   image: NetworkImage('https://i.pravatar.cc/300')
-                          image: AssetImage('assets/images/login.jpg'),
-                          ),
+                        //   image: NetworkImage('https://i.pravatar.cc/300')
+                        image: AssetImage('assets/images/login.jpg'),
+                      ),
                     ),
                   ),
                   Text(
@@ -67,12 +72,13 @@ class MeanDrawer extends StatelessWidget {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => home_page(),
+                    builder: (context) => home_page(hemail: widget.wemail,),
                   ));
+                 
             },
           ),
           ListTile(
-            leading: Icon(Icons.settings),
+            leading: Icon(Icons.location_searching),
             title: Text(
               'Find Me IN!',
               style: TextStyle(
@@ -80,11 +86,11 @@ class MeanDrawer extends StatelessWidget {
               ),
             ),
             onTap: () {
-            /*  Navigator.push(
+                Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => FPage(),
-                  ));*/
+                    builder: (context) => welcome(remail: widget.wemail),
+                  ));
             },
           ),
           ListTile(
@@ -95,14 +101,28 @@ class MeanDrawer extends StatelessWidget {
                 fontSize: 18,
               ),
             ),
-            onTap:(){
+            onTap: () {
               Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => FindAdress(),
-                    ));
-            
-                  
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => FindAdress(),
+                  ));
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.nature_outlined),
+            title: Text(
+              'Lattitude Locater',
+              style: TextStyle(
+                fontSize: 18,
+              ),
+            ),
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => FindAdress(),
+                  ));
             },
           ),
           ListTile(
@@ -114,7 +134,7 @@ class MeanDrawer extends StatelessWidget {
                 ),
               ),
               onTap: () {
-              /*  Navigator.push(
+                /*  Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => Predict(),
@@ -128,15 +148,14 @@ class MeanDrawer extends StatelessWidget {
                 fontSize: 18,
               ),
             ),
-            onTap: (){
-            /*  Navigator.push(
+            onTap: () {
+              /*  Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => CameraGalleryDemo(),
                     ));*/
             },
           ),
-          
         ],
       ),
     );

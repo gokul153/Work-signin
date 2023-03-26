@@ -75,6 +75,10 @@ flutter:
   assets:
       - D:\PROJECT\check\project\assets\images\Settyl-logo-dark.jpg
       - D:\PROJECT\check\project\assets\images\login.jpg
+      - D:\PROJECT\check\project\assets\images\car_animate.png
+      - D:\PROJECT\check\project\assets\images\car.png
+      - D:\PROJECT\check\project\assets\images\store.png
+      - D:\PROJECT\check\project\assets\images\school.png
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 

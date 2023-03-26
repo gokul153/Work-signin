@@ -4,50 +4,56 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_geocoder/geocoder.dart';
 import 'package:flutter_geocoder/model.dart';
 import 'package:get/get.dart';
+import 'package:project/pages/meandrawer.dart';
+import 'package:project/pages/showinmap.dart';
+
 String stAdrees = "";
 
 class FindAdress extends StatefulWidget {
-  const FindAdress({super.key});
+   FindAdress({super.key});
 
   @override
   State<FindAdress> createState() => _FindAdressState();
 }
 
 class _FindAdressState extends State<FindAdress> {
+  double lat = 0.0;
+  double long = 0.0;
   final _latController = TextEditingController();
-
+  String aemail = "";
   final _logController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: Text("Convert Lattitude and longitude to address"),
+          title: Text("Convert Latt and long to Address"),
           centerTitle: true,
         ),
+        drawer: MeanDrawer(wemail: aemail),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             TextFormField(
-                    scrollPadding: EdgeInsets.all(3.0),
-                    controller: _latController,
-                    decoration: InputDecoration(
-                        labelText: "Enter lattitude",
-                        labelStyle: TextStyle(color: Color.fromARGB(255, 9, 9, 9)),
-                        hintStyle: TextStyle(color: Color.fromARGB(255, 205, 8, 8)),
-                        hintText: "Lattitude",
-                        border: InputBorder.none)),
-                           TextFormField(
-                    scrollPadding: EdgeInsets.all(3.0),
-                    controller: _logController,
-                    decoration: InputDecoration(
-                        labelText: "Enter Longitude",
-                        labelStyle: TextStyle(color: Color.fromARGB(255, 9, 9, 9)),
-                        hintStyle: TextStyle(color: Color.fromARGB(255, 205, 8, 8)),
-                        hintText: "Longitude",
-                        border: InputBorder.none)),
-           /* Row(
+                scrollPadding: EdgeInsets.all(3.0),
+                controller: _latController,
+                decoration: InputDecoration(
+                    labelText: "Enter lattitude",
+                    labelStyle: TextStyle(color: Color.fromARGB(255, 9, 9, 9)),
+                    hintStyle: TextStyle(color: Color.fromARGB(255, 205, 8, 8)),
+                    hintText: "Lattitude",
+                    border: InputBorder.none)),
+            TextFormField(
+                scrollPadding: EdgeInsets.all(3.0),
+                controller: _logController,
+                decoration: InputDecoration(
+                    labelText: "Enter Longitude",
+                    labelStyle: TextStyle(color: Color.fromARGB(255, 9, 9, 9)),
+                    hintStyle: TextStyle(color: Color.fromARGB(255, 205, 8, 8)),
+                    hintText: "Longitude",
+                    border: InputBorder.none)),
+            /* Row(
               children: [
                 TextFormField(
                     scrollPadding: EdgeInsets.all(3.0),
@@ -72,16 +78,26 @@ class _FindAdressState extends State<FindAdress> {
             GestureDetector(
               onTap: () async {
                 final query = "1600 Amphiteatre Parkway, Mountain View";
-var addresses = await Geocoder.local.findAddressesFromQuery(query);
-var second = addresses.first;
-print("${second.featureName} : ${second.coordinates}");
+                var addresses =
+                    await Geocoder.local.findAddressesFromQuery(query);
+                var second = addresses.first;
+                print("${second.featureName} : ${second.coordinates}");
+
                 final coordinates = new Coordinates(
                     double.parse(_latController.text),
                     double.parse(_logController.text));
-                if (coordinates == null) {
+                setState(() {
+                  lat = double.parse(_latController.text);
+                  long = double.parse(_logController.text);
+                });
+                print("the given lattitude and logitude is: $lat,$long");
+                if (coordinates == null ||
+                    _latController.text == null ||
+                    _logController.text == null) {
                   print("enter proper cordinates");
-                 Get.snackbar("About Cordinate", "Not valid",
-            snackPosition: SnackPosition.BOTTOM, titleText: Text("failed!"));
+                  Get.snackbar("About Cordinate", "Not valid",
+                      snackPosition: SnackPosition.BOTTOM,
+                      titleText: Text("failed!"));
                 } else {
                   var address = await Geocoder.local
                       .findAddressesFromCoordinates(coordinates);
@@ -109,7 +125,15 @@ print("${second.featureName} : ${second.coordinates}");
               ),
             ),
             Text(stAdrees),
-            ElevatedButton(onPressed: (){}, child: Text("veiw in map"),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => show_inmap(slat:lat,slong:long),
+                    ));
+              },
+              child: Text("veiw in map"),
             )
           ],
         ),
