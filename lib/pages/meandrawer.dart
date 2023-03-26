@@ -3,11 +3,14 @@ import 'package:project/pages/Address.dart';
 import 'package:project/pages/home_screen.dart';
 import 'package:project/pages/welcomepage.dart';
 
+String mname = "";
+
 //import './detail_screen.dart';
 //import './home_screen.dart';
 class MeanDrawer extends StatefulWidget {
   String wemail;
-   MeanDrawer({super.key, required this.wemail});
+
+  MeanDrawer({super.key, required this.wemail});
 
   @override
   State<MeanDrawer> createState() => _MeanDrawerState();
@@ -15,6 +18,28 @@ class MeanDrawer extends StatefulWidget {
 
 class _MeanDrawerState extends State<MeanDrawer> {
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    //0 super.initState()
+    //;
+  /*  mname = "";
+    String checkname = widget.wemail;
+    print(checkname);
+    int len = checkname.length;
+    for (int i = 0; i < len - 1; i++) {
+      if (checkname[i] != "@") {
+        mname = mname + checkname[i];
+      } else {
+        break;
+      }
+    }
+    print("user is meandrawer$mname");
+    setState(() {
+      name = name;
+    });*/
+  }
+
   Widget build(BuildContext context) {
     return Drawer(
       child: Column(
@@ -43,7 +68,7 @@ class _MeanDrawerState extends State<MeanDrawer> {
                     ),
                   ),
                   Text(
-                    'Welcome user',
+                    'Welcome $name',
                     style: TextStyle(
                       fontSize: 20,
                       color: Colors.white,
@@ -72,9 +97,10 @@ class _MeanDrawerState extends State<MeanDrawer> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => home_page(hemail: widget.wemail,),
+                    builder: (context) => home_page(
+                      hemail: widget.wemail,
+                    ),
                   ));
-                 
             },
           ),
           ListTile(
@@ -86,7 +112,7 @@ class _MeanDrawerState extends State<MeanDrawer> {
               ),
             ),
             onTap: () {
-                Navigator.push(
+              Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) => welcome(remail: widget.wemail),

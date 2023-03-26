@@ -48,6 +48,8 @@ dependencies:
   google_fonts: ^4.0.3
   flutter_geocoder: ^0.2.2-nullsafety
   geolocator: ^9.0.2
+  url_launcher: ^6.1.10
+  maps_launcher: ^2.2.0
 
 dev_dependencies:
   flutter_test:

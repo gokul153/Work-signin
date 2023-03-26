@@ -1,16 +1,21 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_geocoder/geocoder.dart';
 import 'package:flutter_geocoder/model.dart';
 import 'package:get/get.dart';
+import 'package:maps_launcher/maps_launcher.dart';
 import 'package:project/pages/meandrawer.dart';
 import 'package:project/pages/showinmap.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 String stAdrees = "";
 
 class FindAdress extends StatefulWidget {
-   FindAdress({super.key});
+  FindAdress({super.key});
 
   @override
   State<FindAdress> createState() => _FindAdressState();
@@ -19,9 +24,20 @@ class FindAdress extends StatefulWidget {
 class _FindAdressState extends State<FindAdress> {
   double lat = 0.0;
   double long = 0.0;
+  String map_api = 'AIzaSyDtuBoot4NIjYpdFMyPvyoWTnnnIthBV0k';
   final _latController = TextEditingController();
   String aemail = "";
   final _logController = TextEditingController();
+  Future<void> _openMap(String lat, String long) async {
+    String url =
+        "https://maps.google.com/maps/search/?api=$map_api&query=$lat,$long";
+    print(url);
+    await canLaunchUrlString(url)
+        ? await launchUrlString(url)
+        : throw 'couild not open $url';
+    // return 0;
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -127,11 +143,15 @@ class _FindAdressState extends State<FindAdress> {
             Text(stAdrees),
             ElevatedButton(
               onPressed: () {
-                Navigator.push(
+                
+                MapsLauncher.launchCoordinates(
+                    lat, long, 'Google Headquarters are here');
+                /*  Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => show_inmap(slat:lat,slong:long),
-                    ));
+                    ));*/
+                //  _openMap(lat.toString(), long.toString());
               },
               child: Text("veiw in map"),
             )

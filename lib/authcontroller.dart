@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:project/orginalsplash.dart';
+import 'package:project/pages/home_screen.dart';
 import 'package:project/pages/login_page.dart';
 import 'package:project/pages/welcomepage.dart';
 
@@ -36,7 +37,7 @@ class Authcontroller extends GetxController {
       print("get user to welcome page");
       user_add = 1;
       print("user add updated $user_add");
-      Get.offAll(() => welcome(remail:user.email!));
+      Get.offAll(() => home_page(hemail:user.email!));
       // ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
   }

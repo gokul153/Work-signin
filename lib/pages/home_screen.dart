@@ -13,9 +13,11 @@ import 'package:project/pages/login_page.dart';
 import 'package:project/pages/meandrawer.dart';
 import 'package:project/pages/welcomepage.dart';
 
+String name = "";
+
 class home_page extends StatefulWidget {
   String hemail;
-  String name = "";
+
   home_page({super.key, required this.hemail});
 
   @override
@@ -26,6 +28,7 @@ class _home_pageState extends State<home_page> {
   @override
   void initState() {
     // TODO: implement initState
+    //name = "";
     super.initState();
     String checkname = widget.hemail;
     print(checkname);
@@ -50,46 +53,44 @@ class _home_pageState extends State<home_page> {
       ),
       drawer: MeanDrawer(wemail: widget.hemail),
       body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-       
         Center(
           child: Container(
-                      width: 100,
-                      height: 100,
-                      margin: EdgeInsets.only(
-                        top: 30,
-                        bottom: 10,
-                      ),
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        image: DecorationImage(
-                          //   image: NetworkImage('https://i.pravatar.cc/300')
-                          image: AssetImage('assets/images/login.jpg'),
-                        ),
-                      ),
-                    ),
+            width: 100,
+            height: 100,
+            margin: EdgeInsets.only(
+              top: 30,
+              bottom: 10,
+            ),
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              image: DecorationImage(
+                //   image: NetworkImage('https://i.pravatar.cc/300')
+                image: AssetImage('assets/images/login.jpg'),
+              ),
+            ),
+          ),
         ),
         Row(
           children: [
-             Text(
-          'Welcome,',
-          style: GoogleFonts.pinyonScript(
-            fontSize: 50,
-          ),
-        ),
-            
+            Text(
+              'Welcome,',
+              style: GoogleFonts.pinyonScript(
+                fontSize: 50,
+              ),
+            ),
           ],
         ),
         Center(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  name,
-                  style: GoogleFonts.akshar(
+          child: Padding(
+            padding: const EdgeInsets.all(2.0),
+            child: Text(
+              name,
+              style: GoogleFonts.akshar(
                 fontSize: 25,
               ),
-                ),
-              ),
             ),
+          ),
+        ),
         Center(
             child: ElevatedButton.icon(
                 onPressed: () {
